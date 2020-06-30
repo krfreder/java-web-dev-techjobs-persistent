@@ -21,7 +21,7 @@ public abstract class AbstractEntity {
     @NotBlank(message = "Please enter a name.")
     @NotNull(message = "Please enter a name.")
     //    reasonable limitations on size of string
-    @Max(350)
+    @Max(250)
     private String name;
 
     public int getId() {
