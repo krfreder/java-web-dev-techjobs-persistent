@@ -9,11 +9,13 @@ import javax.validation.constraints.Size;
 @Entity
 public class Employer extends AbstractEntity {
 
-    @NotEmpty(message = "Please enter a location.")
     @NotBlank(message = "Please enter a location.")
-    @NotNull(message = "Please enter a location.")
     @Size(min = 2, max = 250)
     private String location;
+
+    public Employer(String location) {
+        this.location = location;
+    }
 
     public Employer() {}
 
