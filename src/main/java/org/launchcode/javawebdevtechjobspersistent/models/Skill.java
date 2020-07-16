@@ -2,6 +2,7 @@ package org.launchcode.javawebdevtechjobspersistent.models;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Skill extends AbstractEntity {
     @ManyToMany(mappedBy = "skills")
     private final List<Job> jobs = new ArrayList<>();
 
-    @NotNull(message = "Please add a description of the skill between 2 and 250 characters.")
+    @NotEmpty(message = "Please add a description of the skill between 2 and 250 characters.")
     @Size(min = 2, max = 250, message = "Please add a description of the skill between 2 and 250 characters")
     private String description;
 

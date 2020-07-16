@@ -16,7 +16,6 @@ public abstract class AbstractEntity {
     private int id;
 
     @NotBlank(message = "Please enter a name.")
-    @NotNull(message = "Please enter a name.")
     @Size(min = 2, max = 250, message = "Must be between 2 and 250 characters.")
     private String name;
 
