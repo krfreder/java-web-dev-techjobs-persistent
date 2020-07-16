@@ -18,7 +18,7 @@ public abstract class AbstractEntity {
 //    validation: cannot leave blank
     @NotBlank(message = "Please enter a name.")
     //    reasonable limitations on size of string
-    @Size(min = 2, max = 250)
+    @Size(min = 2, max = 250, message = "Must be between 2 and 250 characters.")
     private String name;
 
     public int getId() {
