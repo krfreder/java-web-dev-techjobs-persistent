@@ -2,6 +2,7 @@ package org.launchcode.javawebdevtechjobspersistent.controllers;
 
 import org.launchcode.javawebdevtechjobspersistent.models.Employer;
 import org.launchcode.javawebdevtechjobspersistent.models.Job;
+import org.launchcode.javawebdevtechjobspersistent.models.Skill;
 import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
 import org.launchcode.javawebdevtechjobspersistent.models.data.JobRepository;
 import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
@@ -48,33 +49,27 @@ public class HomeController {
 
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-                                       Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
+                                    Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
+        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
-            model.addAttribute(new Job());
             model.addAttribute("employers", employerRepository.findAll());
             model.addAttribute("skills", skillRepository.findAll());
             return "add";
         } else {
             Optional<Employer> result = employerRepository.findById(employerId);
-            if (result.isEmpty()) {
-                model.addAttribute("employers", "Invalid Employer ID: " + employerId);
-            } else {
-                Employer employer = result.get();
-                newJob.setEmployer(employer);
+            Employer employer = result.get();
+            newJob.setEmployer(employer);
+            newJob.setSkills(skillObjs);
 
-                jobRepository.save(newJob);
-//                model.addAttribute("title", "Add Job");
-//                model.addAttribute("employer", employer.getName());
-            }
+            jobRepository.save(newJob);
         }
         return "redirect:";
     }
 
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
-
         return "view";
     }
 
